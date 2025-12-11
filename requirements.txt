@@ -1,0 +1,21 @@
+
+pyjwt
+fastapi==0.110.0
+uvicorn==0.29.0
+
+# MongoDB
+pymongo==4.6.1
+
+# Password hashing
+passlib==1.7.4
+bcrypt==4.1.2
+
+# JWT Authentication
+python-jose==3.3.0
+
+# Environment variables
+python-dotenv==1.0.1
+
+# Optional but recommended for schema validation
+pydantic==2.6.3
+pydantic-settings==2.2.1
