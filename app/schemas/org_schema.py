@@ -7,14 +7,12 @@ class OrgCreateRequest(BaseModel):
     password: str
 
 
-class OrgUpdateRequest(BaseModel):
-    organization_name: str
+class OrgUpdateCredentialsRequest(BaseModel):
     email: EmailStr
     password: str
 
 
-class OrgDeleteRequest(BaseModel):
-    organization_name: str
+
 
 
 class OrgResponse(BaseModel):

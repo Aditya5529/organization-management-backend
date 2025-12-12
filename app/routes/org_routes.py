@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, Query, Body
 
 from app.schemas.org_schema import (
     OrgCreateRequest,
-    OrgUpdateRequest,
-    OrgDeleteRequest,
+    OrgCreateRequest,
+    OrgUpdateCredentialsRequest,
 )
 from app.services.org_service import OrganizationService
 from app.utils.jwt_handler import get_current_admin
@@ -27,9 +27,13 @@ def get_org(organization_name: str = Query(...)):
 
 
 @router.put("/update")
-def update_org(payload: OrgUpdateRequest):
+def update_org(
+    payload: OrgUpdateCredentialsRequest,
+    current_admin=Depends(get_current_admin),
+):
+    organization_name = current_admin["organization_name"]
     return service.update_organization(
-        organization_name=payload.organization_name,
+        organization_name=organization_name,
         email=payload.email,
         password=payload.password,
     )
@@ -37,11 +41,11 @@ def update_org(payload: OrgUpdateRequest):
 
 @router.delete("/delete")
 def delete_org(
-    payload: OrgDeleteRequest = Body(...),
     current_admin=Depends(get_current_admin),
 ):
     admin_id = current_admin["admin_id"]
+    organization_name = current_admin["organization_name"]
     return service.delete_organization(
-        organization_name=payload.organization_name,
+        organization_name=organization_name,
         admin_id=admin_id
     )
